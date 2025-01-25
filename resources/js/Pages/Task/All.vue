@@ -45,7 +45,7 @@
                                 name=""
                                 id=""
                                 class="rounded border-gray-300"
-                                v-model="priorities[task.priority]"
+                                :value="computedPriority(task.priority)"
                                 @change="(e) => updatePriority(e, task)"
                             >
                                 <option
@@ -114,15 +114,24 @@ function destroy(e, task) {
     form.delete(route("task.destroy", { id: task.id }));
 }
 
-const computedStatus = computed((val) => {
+const computedStatus = (val) => {
     let bkey = "";
     const keys = Object.keys(props.status);
     keys.forEach((key) => {
         if (props.status[key] == val) {
-            key = bkey;
+            bkey = key;
         }
     });
     return bkey;
-});
-const computedPriority = computed(() => {});
+};
+const computedPriority = (val) => {
+    let bkey = "";
+    const keys = Object.keys(props.priorities);
+    keys.forEach((key) => {
+        if (props.priorities[key] == val) {
+            bkey = key;
+        }
+    });
+    return bkey;
+};
 </script>
